@@ -112,7 +112,7 @@ public class Alert {
 
 	@Override
 	public String toString() {
-		return "Patient [alertId=" + alertId + ", name=" + name + ", high_alert_value=" + high + ", medium_alert_value="
+		return "Alert [alertId=" + alertId + ", name=" + name + ", high_alert_value=" + high + ", medium_alert_value="
 				+ medium + ", low_alert_value=" + low + "]";
 	}
 }
