@@ -66,23 +66,23 @@ public class AlertController {
   @PostMapping(value = "/api/alert/{alertId}/alerttype")
   public ResponseEntity<List<String>> monitorAlertType(@PathVariable("alertId") String alertId,
       @RequestBody Alert alerttype) {
-    final HighAlert temperatureObj = new HighAlert();
-    final MediumAlert spo2Obj = new MediumAlert();
-    final LowAlert pulseRateObj = new LowAlert();
+    final HighAlert highAlert = new HighAlert();
+    final MediumAlert mediumAlert = new MediumAlert();
+    final LowAlert lowAlert = new LowAlert();
     final Alert alert = service.findById(alertId);
     final List<String> alerts = new ArrayList<>();
     if (alert != null) {
-      if (temperatureObj.checkRange(alerttype.getHighValue())) {
+      if (highAlert.checkRange(alerttype.getHighValue())) {
         service.alarmSwitch("high", true, alertId);
-        alerts.add(temperatureObj.alertMessage(alerttype.getHighValue()));
+        alerts.add(highAlert.alertMessage(alerttype.getHighValue()));
       }
-      if (spo2Obj.checkRange(alerttype.getMediumValue())) {
+      if (mediumAlert.checkRange(alerttype.getMediumValue())) {
         service.alarmSwitch("medium", true, alertId);
-        alerts.add(spo2Obj.alertMessage(alerttype.getMediumValue()));
+        alerts.add(mediumAlert.alertMessage(alerttype.getMediumValue()));
       }
-      if (pulseRateObj.checkRange(alerttype.getLowValue())) {
+      if (lowAlert.checkRange(alerttype.getLowValue())) {
         service.alarmSwitch("low", true, alertId);
-        alerts.add(pulseRateObj.alertMessage(alerttype.getLowValue()));
+        alerts.add(lowAlert.alertMessage(alerttype.getLowValue()));
       }
       return new ResponseEntity<>(alerts, HttpStatus.OK);
     } else {
